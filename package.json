@@ -1,7 +1,7 @@
 {
   "name": "ipa-parser",
   "description": "Script para obtener la pronunciacion IPA desde el diccionario de cambridge",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
