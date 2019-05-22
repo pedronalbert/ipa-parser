@@ -39,7 +39,7 @@ const getWords = () => new Promise((resolve, reject) => {
 });
 
 const writeResult = word => {
-  const entry = `${word.english},${word.spanish},${word.ipa}`;
+  const entry = `${word.english},${word.ipa},${word.spanish}`;
 
   fs.appendFile(RESULTS_FILE, entry + '\n', () => {
     console.log('word saved: ' + entry);
