@@ -17,8 +17,8 @@ const getCSVContent = () => fs.readFileSync(ENTRY_FILE).toString();
 
 const parseWordsArray = wordsArray => wordsArray.map(entry => ({
   english: entry[0],
-  spanish: entry[1] || '',
-  ipa: '',
+  ipa: entry[1] || '',
+  spanish: entry[2] || '',
 }));
 
 const getWordsFromCSVContent = CSVContent => new Promise((resolve, reject) => {
@@ -71,10 +71,16 @@ const getIPA = englishWord => new Promise((resolve, reject) => {
 
   getWords().then(words => {
     async.eachSeries(words, (word, next) => {
-      getIPA(word.english)
-        .then(ipa => writeResult({ ...word, ipa }))
-        .then(next)
-        .catch(console.error)
+      if(word.ipa) {
+        writeResult(word)
+
+        next();
+      } else {
+        getIPA(word.english)
+          .then(ipa => writeResult({ ...word, ipa }))
+          .then(next)
+          .catch(console.error)
+      }
     }, () => console.log('Finished'));
   });
 })();
